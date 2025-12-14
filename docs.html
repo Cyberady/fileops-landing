@@ -21,7 +21,7 @@
     <h2>Getting Started</h2>
 
     <p>
-      FileOps API allows you to compress, resize, and convert images
+      FileOps API allows you to compress, resize, convert, and watermark images
       using simple HTTP requests.
     </p>
 
@@ -38,7 +38,8 @@ x-api-key: YOUR_API_KEY
     </pre>
 
     <p>
-      If the API key is missing or invalid, the request will be rejected.
+      If the API key is missing, invalid, or exceeds daily limits,
+      the request will be rejected.
     </p>
   </section>
 
@@ -96,8 +97,33 @@ curl -X POST "https://fileops-api.onrender.com/convert-image?format=jpeg" \
     <p>Supported formats: jpeg, png, webp</p>
   </section>
 
-  <!-- ERRORS -->
+  <!-- WATERMARK -->
   <section class="section">
+    <h2>Watermark Image</h2>
+
+    <p>
+      Adds a text watermark to the bottom-right corner of the image.
+      Useful for branding and copyright protection.
+    </p>
+
+    <pre>
+POST /watermark-image?text=YourText
+    </pre>
+
+    <h4>Example (cURL)</h4>
+    <pre>
+curl -X POST "https://fileops-api.onrender.com/watermark-image?text=MyBrand" \
+  -H "x-api-key: YOUR_API_KEY" \
+  -F "file=@image.png"
+    </pre>
+
+    <p>
+      Returns the image with a visible text watermark.
+    </p>
+  </section>
+
+  <!-- ERRORS -->
+  <section class="section dark">
     <h2>Error Responses</h2>
 
     <h4>Invalid API Key</h4>
