@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FileOps API Docs</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="nav-container">
+      <div class="logo">FileOps Docs</div>
+      <a href="index.html" class="nav-btn">Back to Home</a>
+    </div>
+  </nav>
+
+  <!-- DOCS -->
+  <section class="section">
+    <h2>Getting Started</h2>
+
+    <p>
+      FileOps API allows you to compress, resize, and convert images
+      using simple HTTP requests.
+    </p>
+
+    <h3>Base URL</h3>
+    <pre>https://fileops-api.onrender.com</pre>
+
+    <h3>Authentication</h3>
+    <p>
+      All requests must include your API key in the header:
+    </p>
+
+    <pre>
+x-api-key: YOUR_API_KEY
+    </pre>
+
+    <p>
+      If the API key is missing or invalid, the request will be rejected.
+    </p>
+  </section>
+
+  <!-- COMPRESS -->
+  <section class="section dark">
+    <h2>Compress Image</h2>
+
+    <pre>
+POST /compress-image
+    </pre>
+
+    <h4>Example (cURL)</h4>
+    <pre>
+curl -X POST https://fileops-api.onrender.com/compress-image \
+  -H "x-api-key: YOUR_API_KEY" \
+  -F "file=@image.png"
+    </pre>
+
+    <p>Returns a compressed image file.</p>
+  </section>
+
+  <!-- RESIZE -->
+  <section class="section">
+    <h2>Resize Image</h2>
+
+    <pre>
+POST /resize-image?width=400
+    </pre>
+
+    <h4>Example (cURL)</h4>
+    <pre>
+curl -X POST "https://fileops-api.onrender.com/resize-image?width=400" \
+  -H "x-api-key: YOUR_API_KEY" \
+  -F "file=@image.png"
+    </pre>
+
+    <p>Returns a resized image while maintaining aspect ratio.</p>
+  </section>
+
+  <!-- CONVERT -->
+  <section class="section dark">
+    <h2>Convert Image Format</h2>
+
+    <pre>
+POST /convert-image?format=jpeg
+    </pre>
+
+    <h4>Example (cURL)</h4>
+    <pre>
+curl -X POST "https://fileops-api.onrender.com/convert-image?format=jpeg" \
+  -H "x-api-key: YOUR_API_KEY" \
+  -F "file=@image.png"
+    </pre>
+
+    <p>Supported formats: jpeg, png, webp</p>
+  </section>
+
+  <!-- ERRORS -->
+  <section class="section">
+    <h2>Error Responses</h2>
+
+    <h4>Invalid API Key</h4>
+    <pre>
+{
+  "error": "Invalid API key"
+}
+    </pre>
+
+    <h4>Daily Limit Exceeded</h4>
+    <pre>
+{
+  "error": "Daily limit exceeded"
+}
+    </pre>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <p>© 2025 FileOps API • Documentation</p>
+  </footer>
+
+</body>
+</html>
