@@ -18,41 +18,48 @@
   </div>
 </nav>
 
-<section class="section">
-  <div class="playground-card">
+<section class="playground-wrap">
 
-    <h2>Try FileOps API</h2>
-    <p class="muted">
-      Test image compression, resize, conversion & watermarking instantly.
-    </p>
+  <div class="playground-header">
+    <h1>API Playground</h1>
+    <p>Test FileOps image APIs in real time</p>
+  </div>
 
-    <div class="form-group">
+  <div class="playground-grid">
+
+    <!-- LEFT PANEL -->
+    <div class="panel">
+      <h3>Request</h3>
+
       <label>API Key</label>
       <input id="apiKey" placeholder="fops_live_xxxxxxxxx" />
-    </div>
 
-    <div class="form-group">
-      <label>Select Image</label>
+      <label>Image</label>
       <input type="file" id="imageFile" />
-    </div>
 
-    <div class="form-group">
       <label>Operation</label>
       <select id="action">
-        <option value="compress">Compress Image</option>
+        <option value="compress">Compress</option>
         <option value="resize">Resize (400px)</option>
         <option value="convert">Convert to JPEG</option>
-        <option value="watermark">Add Watermark</option>
+        <option value="watermark">Watermark</option>
       </select>
+
+      <button class="btn primary full" onclick="run()">Run API</button>
+
+      <div id="status" class="status"></div>
     </div>
 
-    <button class="btn primary full" onclick="run()">Run API</button>
-
-    <div id="status" class="status"></div>
-
-    <div id="result" class="result-box"></div>
+    <!-- RIGHT PANEL -->
+    <div class="panel result-panel">
+      <h3>Response</h3>
+      <div id="result" class="preview-box">
+        <span class="placeholder">Processed image preview will appear here</span>
+      </div>
+    </div>
 
   </div>
+
 </section>
 
 <script src="playground.js"></script>
