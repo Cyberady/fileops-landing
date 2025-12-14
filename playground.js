@@ -1,17 +1,16 @@
 async function run() {
-  const apiKey = document.getElementById("apiKey").value;
+  const apiKey = document.getElementById("apiKey").value.trim();
   const file = document.getElementById("imageFile").files[0];
   const action = document.getElementById("action").value;
   const result = document.getElementById("result");
+  const status = document.getElementById("status");
 
   if (!apiKey || !file) {
-    alert("API key & image required");
+    alert("Please provide API key and image");
     return;
   }
 
-  let url = "https://fileops-api.onrender.com";
   let endpoint = "";
-  
   if (action === "compress") endpoint = "/compress-image";
   if (action === "resize") endpoint = "/resize-image?width=400";
   if (action === "convert") endpoint = "/convert-image?target_format=jpeg";
@@ -20,28 +19,34 @@ async function run() {
   const formData = new FormData();
   formData.append("file", file);
 
-  result.innerHTML = "Processing...";
+  status.innerText = "⏳ Processing...";
+  result.innerHTML = "";
 
-  const res = await fetch(url + endpoint, {
-    method: "POST",
-    headers: {
-      "x-api-key": apiKey
-    },
-    body: formData
-  });
+  try {
+    const res = await fetch(
+      "https://fileops-api.onrender.com" + endpoint,
+      {
+        method: "POST",
+        headers: { "x-api-key": apiKey },
+        body: formData
+      }
+    );
 
-  if (!res.ok) {
-    result.innerHTML = "❌ Error occurred";
-    return;
+    if (!res.ok) {
+      status.innerText = "❌ API Error";
+      return;
+    }
+
+    const blob = await res.blob();
+    const imgUrl = URL.createObjectURL(blob);
+
+    status.innerText = "✅ Done";
+
+    result.innerHTML = `
+      <img src="${imgUrl}" />
+      <a href="${imgUrl}" download class="btn secondary">Download</a>
+    `;
+  } catch (err) {
+    status.innerText = "❌ Network error";
   }
-
-  const blob = await res.blob();
-  const imgUrl = URL.createObjectURL(blob);
-
-  result.innerHTML = `
-    <h3>Result</h3>
-    <img src="${imgUrl}" style="max-width:100%; border-radius:8px"/>
-    <br/><br/>
-    <a href="${imgUrl}" download class="btn secondary">Download</a>
-  `;
 }
