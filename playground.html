@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FileOps Playground</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-container">
+    <div class="logo">FileOps Playground</div>
+    <a href="index.html" class="nav-btn">Home</a>
+  </div>
+</nav>
+
+<section class="section">
+  <h2>Try FileOps API</h2>
+  <p>Test image APIs instantly using your API key.</p>
+
+  <label>API Key</label>
+  <input id="apiKey" placeholder="fops_live_xxx" class="input"/>
+
+  <label>Choose Image</label>
+  <input type="file" id="imageFile" class="input"/>
+
+  <label>Action</label>
+  <select id="action" class="input">
+    <option value="compress">Compress</option>
+    <option value="resize">Resize (400px)</option>
+    <option value="convert">Convert to JPEG</option>
+    <option value="watermark">Watermark</option>
+  </select>
+
+  <button class="btn primary" onclick="run()">Run</button>
+
+  <div id="result" style="margin-top:20px;"></div>
+</section>
+
+<script src="playground.js"></script>
+</body>
+</html>
