@@ -257,3 +257,71 @@ ul li {
     flex-direction: column;
   }
 }
+
+/* ---------- PLAYGROUND UI ---------- */
+
+.playground-card {
+  max-width: 520px;
+  margin: auto;
+  background: #0e0e0e;
+  padding: 32px;
+  border-radius: 14px;
+  border: 1px solid #1f1f1f;
+}
+
+.playground-card h2 {
+  margin-bottom: 6px;
+}
+
+.muted {
+  color: #9a9a9a;
+  font-size: 14px;
+  margin-bottom: 24px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 18px;
+}
+
+.form-group label {
+  font-size: 13px;
+  margin-bottom: 6px;
+  color: #cfcfcf;
+}
+
+.form-group input,
+.form-group select {
+  background: #151515;
+  border: 1px solid #2a2a2a;
+  padding: 10px 12px;
+  border-radius: 8px;
+  color: #fff;
+}
+
+.form-group input::placeholder {
+  color: #777;
+}
+
+.btn.full {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.status {
+  margin-top: 16px;
+  font-size: 14px;
+  color: #aaa;
+}
+
+.result-box {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.result-box img {
+  max-width: 100%;
+  border-radius: 10px;
+  margin-bottom: 12px;
+}
