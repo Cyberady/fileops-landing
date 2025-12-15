@@ -1,51 +1,73 @@
-async function run() {
-  const apiKey = document.getElementById("apiKey").value.trim();
-  const file = document.getElementById("imageFile").files[0];
-  const action = document.getElementById("action").value;
-  const result = document.getElementById("result");
-  const status = document.getElementById("status");
+async function runPlayground() {
+  const apiKey = document.getElementById("apiKey").value;
+  const operation = document.getElementById("operation").value;
+  const width = document.getElementById("width").value;
+  const watermark = document.getElementById("watermark").value;
+  const fileInput = document.getElementById("imageFile");
 
-  if (!apiKey || !file) {
-    alert("Please provide API key and image");
+  const status = document.getElementById("status");
+  const preview = document.getElementById("preview");
+  const previewText = document.getElementById("previewText");
+  const downloadLink = document.getElementById("downloadLink");
+
+  if (!apiKey || !fileInput.files.length) {
+    status.innerText = "❌ API key and image required";
     return;
   }
 
-  let endpoint = "";
-  if (action === "compress") endpoint = "/compress-image";
-  if (action === "resize") endpoint = "/resize-image?width=400";
-  if (action === "convert") endpoint = "/convert-image?target_format=jpeg";
-  if (action === "watermark") endpoint = "/watermark-image?text=FileOps";
+  status.innerText = "⏳ Processing...";
+  preview.style.display = "none";
+  previewText.style.display = "block";
 
+  const file = fileInput.files[0];
   const formData = new FormData();
   formData.append("file", file);
 
-  status.innerText = "⏳ Processing...";
-  result.innerHTML = "";
+  let endpoint = "";
+  let url = "https://fileops-api.onrender.com";
+
+  if (operation === "compress") {
+    endpoint = "/compress-image";
+  }
+
+  if (operation === "resize") {
+    endpoint = `/resize-image?width=${width || ""}`;
+  }
+
+  if (operation === "watermark") {
+    endpoint = `/watermark-image?text=${watermark || "FileOps"}`;
+  }
+
+  if (operation === "convert") {
+    endpoint = "/convert-image?target_format=jpeg";
+  }
 
   try {
-    const res = await fetch(
-      "https://fileops-api.onrender.com" + endpoint,
-      {
-        method: "POST",
-        headers: { "x-api-key": apiKey },
-        body: formData
-      }
-    );
+    const res = await fetch(url + endpoint, {
+      method: "POST",
+      headers: {
+        "x-api-key": apiKey
+      },
+      body: formData
+    });
 
     if (!res.ok) {
-      status.innerText = "❌ API Error";
+      const text = await res.text();
+      status.innerText = "❌ Error: " + text;
       return;
     }
 
     const blob = await res.blob();
-    const imgUrl = URL.createObjectURL(blob);
+    const objectURL = URL.createObjectURL(blob);
 
-    status.innerText = "✅ Done";
+    preview.src = objectURL;
+    preview.style.display = "block";
+    previewText.style.display = "none";
 
-    result.innerHTML = `
-      <img src="${imgUrl}" />
-      <a href="${imgUrl}" download class="btn secondary">Download</a>
-    `;
+    downloadLink.href = objectURL;
+    downloadLink.querySelector("button").disabled = false;
+
+    status.innerText = "✅ Success";
   } catch (err) {
     status.innerText = "❌ Network error";
   }
