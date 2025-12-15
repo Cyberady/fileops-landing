@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>FileOps Playground</title>
   <link rel="stylesheet" href="playground.css" />
+  <script defer src="playground.js"></script>
 </head>
 <body>
 
@@ -16,98 +17,79 @@
   </div>
 </nav>
 
-<!-- MAIN CONTAINER -->
+<!-- MAIN -->
 <main class="container">
 
   <!-- HEADER -->
   <section class="header">
     <h1>Interactive API Playground</h1>
-    <p>
-      Test FileOps APIs in real-time. Upload an image, choose an operation,
-      and see the results instantly.
-    </p>
+    <p>Test FileOps APIs in real-time. Upload an image and see magic.</p>
   </section>
 
-  <!-- PLAYGROUND CARD -->
+  <!-- PLAYGROUND -->
   <section class="playground-card">
 
-    <!-- LEFT: INPUTS -->
+    <!-- LEFT -->
     <div class="playground-left">
 
-      <!-- API KEY -->
       <div class="field">
         <label>API Key</label>
-        <input type="text" placeholder="fops_live_xxxxxxxxxxxxxxxxx" />
+        <input id="apiKey" placeholder="fops_live_xxxxx" />
       </div>
 
-      <!-- ACTION -->
       <div class="field">
         <label>Action</label>
-        <select>
-          <option>Compress Image</option>
-          <option>Resize Image</option>
-          <option>Convert Image</option>
-          <option>Watermark Image</option>
+        <select id="operation">
+          <option value="compress">Compress</option>
+          <option value="resize">Resize</option>
+          <option value="convert">Convert</option>
+          <option value="watermark">Watermark</option>
         </select>
       </div>
 
-      <!-- OPTIONS (DYNAMIC LATER) -->
       <div class="field">
-        <label>Options</label>
-        <input type="text" placeholder="e.g. width=400 or text=FileOps" />
+        <label>Resize Width (optional)</label>
+        <input id="width" type="number" placeholder="400" />
       </div>
 
-      <!-- FILE -->
+      <div class="field">
+        <label>Watermark Text (optional)</label>
+        <input id="watermark" placeholder="FileOps" />
+      </div>
+
       <div class="field">
         <label>Upload Image</label>
-        <input type="file" />
+        <input id="imageFile" type="file" />
       </div>
 
-      <!-- BUTTON -->
-      <button class="primary-btn">
+      <button class="primary-btn" onclick="runPlayground()">
         Run API
       </button>
-
     </div>
 
-    <!-- RIGHT: PREVIEW -->
+    <!-- RIGHT -->
     <div class="playground-right">
 
-      <!-- STATUS -->
       <div class="status-box">
-        <p>Status: <span>Waiting for input</span></p>
+        <p id="status">Waiting for input</p>
       </div>
 
-      <!-- PREVIEW -->
       <div class="preview-box">
-        <p>Result preview will appear here</p>
+        <img id="preview" style="display:none; max-width:100%;" />
+        <p id="previewText">Result preview will appear here</p>
       </div>
 
-      <!-- DOWNLOAD -->
       <div class="download-box">
-        <button disabled>
-          Download Result
-        </button>
+        <a id="downloadLink" download>
+          <button disabled>Download Result</button>
+        </a>
       </div>
 
     </div>
-
-  </section>
-
-  <!-- INFO -->
-  <section class="info">
-    <h3>How it works</h3>
-    <ol>
-      <li>Enter your API key</li>
-      <li>Select an image operation</li>
-      <li>Upload an image</li>
-      <li>Run the API and preview result</li>
-    </ol>
   </section>
 
 </main>
 
-<!-- FOOTER -->
 <footer class="footer">
   <p>© 2025 FileOps API • Playground</p>
 </footer>
